@@ -1,7 +1,8 @@
-import { Router } from 'express';
+import { Router, Response } from 'express';
 import { AuthController } from '../controllers/authController';
 import { validate } from '../middleware/validation';
 import { authenticate, authorize } from '../middleware/auth';
+import { AuthRequest } from '../types';
 import { signupSchema, loginSchema, passwordResetSchema } from '../utils/validation';
 
 const router = Router();
@@ -12,7 +13,7 @@ router.get('/me', authenticate, AuthController.getMe);
 router.post('/password-reset', validate(passwordResetSchema), AuthController.requestPasswordReset);
 
 // Admin only route example
-router.get('/admin', authenticate, authorize(['admin']), (req, res) => {
+router.get('/admin', authenticate, authorize(['admin']), (req: AuthRequest, res: Response) => {
   res.json({ message: 'Admin access granted' });
 });
 

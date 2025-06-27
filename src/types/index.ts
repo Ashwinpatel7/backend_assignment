@@ -17,6 +17,8 @@ export interface UserResponse {
   updatedAt: Date;
 }
 
+import { Request } from 'express';
+
 export interface AuthRequest extends Request {
   user?: UserResponse;
 }
